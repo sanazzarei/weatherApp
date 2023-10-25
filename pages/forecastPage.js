@@ -104,7 +104,7 @@ function forecastDaily(data) {
   const today = new Date();
   const targetDates = [];
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 1; i < 6; i++) {
     const nextDate = new Date(today);
     nextDate.setDate(today.getDate() + i);
     targetDates.push(nextDate.toISOString().split("T")[0]);
