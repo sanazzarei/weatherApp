@@ -104,7 +104,7 @@ function forecastDaily(data) {
   const today = new Date();
   const targetDates = [];
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 6; i++) {
     const nextDate = new Date(today);
     nextDate.setDate(today.getDate() + i);
     targetDates.push(nextDate.toISOString().split("T")[0]);
@@ -143,28 +143,37 @@ function forecastDaily(data) {
   });
 
   for (const date in dateTemperatures) {
+    if(date === today.toISOString().split("T")[0]){
+      document.querySelector("#min-box p").innerHTML =
+        Math.round(dateTemperatures[date].min) + "°C";
+      document.querySelector("#max-box p").innerHTML =
+        Math.round(dateTemperatures[date].max) + "°C";
+    }
+    else{
     const dayOfWeek = new Date(date).toLocaleDateString("en-US", {
       weekday: "short",
     });
     const liElement = document.createElement("li");
     ulElement.appendChild(liElement);
-    const weekDay = document.createElement('p');
-    weekDay.id = 'week-day';
+    const weekDay = document.createElement("p");
+    weekDay.id = "week-day";
     weekDay.textContent = dayOfWeek;
     liElement.appendChild(weekDay);
     const maxTempDay = document.createElement("p");
     maxTempDay.textContent = dateTemperatures[date].max;
-    maxTempDay.id = 'max-temp-daily';
+    maxTempDay.id = "max-temp-daily";
     liElement.appendChild(maxTempDay);
     const dailyIconImg = document.createElement("img");
     dailyIconImg.src = `../assets/img/${dateTemperatures[date].icon}.png`;
     dailyIconImg.alt = dateTemperatures[date].icon;
-    dailyIconImg.id = 'daily-icon';
+    dailyIconImg.id = "daily-icon";
     liElement.appendChild(dailyIconImg);
     const minTempDay = document.createElement("p");
     minTempDay.textContent = dateTemperatures[date].min;
-    minTempDay.id = 'min-temp-daily';
+    minTempDay.id = "min-temp-daily";
     liElement.appendChild(minTempDay);
+    }
+
   }
 }
 // Function to display the next 3-hour forecast
